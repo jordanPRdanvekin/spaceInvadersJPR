@@ -1,0 +1,9 @@
+BENEFICIOSOS
+- Restaura salud
+- Añade un escudo
+- Mejora de la munición
+
+PERJUDICIAL
+- Invertir controles
+- Ralentizar
+- Empeoramiento de munición
