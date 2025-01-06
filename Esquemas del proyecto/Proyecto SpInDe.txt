@@ -1,0 +1,91 @@
+--JUGADOR--
+
+CONTROLES JUGADOR
+Jugador pulsa teclas direccionales --> Input.GetAxis con curva de aceleración usando LeanTween con interpolación de movimiento --> la nave se mueve
+
+DISPARO BÁSICO
+Jugador pulsa espacio --> Update() + prefabs + ObjectPooling --> la nave lanza un proyectil
+
+PERSONALIZACIÓN DE CONTROLES
+Jugador abre / pulsa opción / cierra menú --> Crear menú Canvas + UI Buttons + LeanTween con desvanecimiento --> el menú se despliega / pliega
+
+
+--ENEMIGOS--
+
+MOVIMIENTO EN CUADRÍCULA
+GameObject conteniendo todos los enemigos --> se mueven horizontalmente hasta el borde --> al tocar el borde descienden una fila y cambian de sentido (LeanTween)
+
+INCREMENTO DE VELOCIDAD
+Jugador elimina a un enemigo --> multiplicador de velocidad / WaitForSeconds --> los enemigos incrementan la velocidad a la que se mueven
+
+COMPORTAMIENTO AVANZADO
+Patrones de ataque --> los enemigos pueden hacer ataques con efecto teledirigido, ráfagas, zigzag... --> ScriptableObjects
+
+
+--COLISIONES--
+
+SISTEMA DE DAÑO
+OnTriggerEnter2D / OnCollisionEnter2D --> explosión con partículas --> LeanTween (sacudida)
+
+
+--INTERFAZ DE USUARIO--
+
+PANTALLA INICIAL
+- Jugar
+- Opciones
+- Salir
+LeanTween.
+	.move( )
+	.Alpha( )
+
+SELECCIÓN DE NAVE
+- Menú selector de nave con sus estadísticas (VELOCIDAD-DAÑO-HAB.ESP: equilibrada, rápida-dañobajo-esp.lineal, lenta-dañoalto-esp.area)
+- Zoom-In al pasar el ratón sobre la selección y fade-out del resto al confirmar elección (sonido al pasar el ratón y al clicar selección)
+- Tutorial de prueba
+
+PATRONES DE ENEMIGOS
+- Prefabs y estadísticas diferentes para cada tipo de enemigo (velocidad, resistencia, tipo de disparo)
+- Generación aleatoria a partir de un script (espacios vacíos, enemigos raros, etc)
+
+PANTALLA DE TRANSICIÓN
+- Nivel Completado / Game Over sobre la pantalla del juego con LeanTween
+- Contador de enemigos eliminados, porcentaje de aciertos (regla de tres: enemigos eliminados dividido por disparos realizados) y puntuación (asignar según tipo de enemigo)
+
+MODO BUNKER
+- Dos estados para los bunkers: dañado o intacto
+- Tres tipos de búnker: defensivo, curativo o mixto
+- Cuatro bunkers al inicio de la partida
+
+
+--MODIFICACIONES--
+
+POWER-UPS
+- Porcentaje de probabilidad de soltar un powerup cuando un enemigo es destruido (rotar con leantween)
+- Tipos: reparación bunkers, disparo rápido, escudo temporal, inversión de controles, munición explosiva (área)
+
+BUNKER A Y BUNKER B
+- TIPO A (escudo): campo de energía que emite ondas con LeanTween, al pasar la nave añade un escudo
+- TIPO B (cura): parpadea con luz muy fuerte, cuando es activado repara la nave envolviéndola con rayos magnéticos
+
+GERARQUÍA DE DIFICULTAD
+- Los enemigos más débiles son los primeros en salir y son más numerosos
+- Los enemigos más fuertes son los últimos en salir y son menos numerosos
+
+
+--INNOVACIONES OPCIONALES--
+
+POWER-UPS AVANZADOS
+- Drones Aliados: pequeñas naves de apoyo siguen al jugador (disparan automáticamente a enemigos más cercanos y orbitan al jugador)
+
+SISTEMA DE TOWER-DEFENSE
+- La integridad de los bunkers protegidos en cada nivel suma puntos para comprar mejoras de los mismos en el siguiente nivel (requiere crear pantalla de tienda entre niveles)
+- Bunkers ofensivos que disparan de forma automática / recolectores que absorven los power-ups
+- Los bunkers son reparables in-game (disparos curativos durante un corto periodo de tiempo)
+- Hasta 10 slots para bunkers desbloqueables mediante tareas adicionales
+
+
+--ESTRATEGIA HÍBRIDA--
+(mezclar con otros géneros de juego) DESCARTADO: muy complejo y sin sentido.
+
+
+ 

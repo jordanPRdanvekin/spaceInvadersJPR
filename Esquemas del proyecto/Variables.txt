@@ -1,0 +1,137 @@
+--OBJETOS COMUNES--
+
+MUNICION
+aspectoMunic
+tipoMunic
+multMunic
+rangMunic
+*func-effMunic()
+*func-onRez-animacion()
+*func-onCollision-animación()
+*func-onCollision-quitarObjeto(object.show=false)
+
+ESCUDO
+aspectoEscudo
+tipoEscudo
+saludEscudo
+*func-onRez-animacion( fadeIn )
+*func-onCollision-reducirSaludEscudo(-->attEnem)
+*func-onExit-animacion( fadeOut )
+*func-onExit-quitarEscudo(object.show=false)
+
+--NAVE DE JUGADOR--
+
+ESTADISTICAS BASE
+aspetoPlayer
+salPlayer
+defPlayer -->tipoEscudo
+attPlayer
+velPlayer
+espPlayer -->tipoMunic
+oportunidades
+*func-onRez-animacion ( SlideUp )
+*func-onCollision-reducirSalPlayer(-->attEnem)
+*func-onExit-animación ( Explodes + SlideDown )
+*func-onExit-bajarOportunidades( oportunidades - 1 -if =0- exitGame )
+
+POWERUPS (OBJETO)
+icoPWUP
+tipoPWUP
+tieCaida
+velCaida
+*func-onRez-animacion ( Pop in! )
+*func-onCollision-activarEfecto(-->espPlayer)
+*func-onExit-animacion ( Pop out! )
+*func-onExit-desaparecer(object.show=false)
+
+POWERUPS (EFECTO)
+tipoPWUP
+aspectoPWUP
+duracionPWUP
+estadisticasActuales
+-->salPlayer
+-->defPlayer
+-->attPlayer
+-->velPlayer
+-->espPlayer
+-->keyBinding
+*func-guardarEstadisticasPlayer()
+*func-aplicarPowerUp()
+*corrutina-duracionPWUP-revertirPWUP( -->estadisticasPlayer)
+
+
+--NAVE ENEMIGA--
+
+ESTADISTICAS BASE
+aspectoEnem
+salEnem
+defEnem -->tipoEscudo
+attEnem
+velEnem
+espEnem -->tipoMunic
+valorEnem
+*func-onRez-animacion( zoomIn )
+*func-onCollision-actualizarAciertos(-->navesGolp + 1)
+*func-onCollision-bajarSalEnm(-->attPlayer)
+*func-onExit-animacion( zoomOut )
+*func-onExit-subirMarcador(-->marcador)
+*func-onExit-actualizarContador(-->navesDest + 1)
+
+
+--BUNKER--
+
+ESTADISTICAS BASE
+aspectoBunk
+salBunk
+defBunk
+accBunk -->tipoAcc
+espBunk -->tipoEsp
+*func-onCollision-bajarSalEnm(-->attPlayer)
+*func-onCollision-bajarSalEnm(-->attEnem)
+*func-onExit-accion(-->efecAcc)
+
+ACCIONES
+tipoAcc
+func-effAcc()
+
+ESPECIAL
+tipoEsp
+func-effEsp()
+
+
+--ESTADÍSTICAS--
+
+PUNTUACIÓN
+marcador (-->valorEnem)
+navesGolp
+navesDest
+vidasRest
+dispReal ( -->dispCounter() )
+*func-dispCounter( listener -->keyBinding(ESP) )
+*func-porcAciertos( round 100/dispReal x navesGolp )  
+
+--VENTANAS--
+
+[TITULO] --press a button--> [MENU]
+
+[MENU] --> OPCIONES --> [CONF.BOTONES] : desplazamiento, disparo, especial, pausa
+
+[MENU] --> NUEVO JUEGO --> [SELECCION DE NAVE] : equilibrada, rápida, resistente
+
+[SELECCION DE NAVE] --confirmacion--> [PRESENTACIÓN] : NIVEL 1
+
+[PRESENTACIÓN NIVEL] --press a button-->[NIVEL]
+
+[NIVEL] --superado--> [PRESENTACION] : SIGUIENTE NIVEL (acción del botón -> NIVEL)
+
+[NIVEL] --0 vidas--> [PRESENTACION] : GAMEOVER (acción del botón -> MENU)
+
+[NIVEL] --keybinding(ENTER)--> [PAUSA]
+
+[PAUSA] --volver--> [NIVEL]
+
+[PAUSA] --abandonar--> ¿Está seguro? --si--> [MENU]
+[PAUSA] --abandonar--> ¿Está seguro? --no--> [PAUSA]
+
+[MENU] --salir--> ¿Está seguro? --si--> exit()
+[MENU] --salir--> ¿Está seguro? --no--> [MENU]
