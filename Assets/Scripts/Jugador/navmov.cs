@@ -12,7 +12,7 @@ public class navmov : MonoBehaviour
     private float lim = 12f; // Límite en el eje X
 
     // Posición inicial de la nave
-    private Vector3 posnav = new Vector3(0f, -7f, 0f);
+     Vector3 posnav = new Vector3(0f, -6f, -2f);
 
     void Start()
     {
@@ -39,7 +39,7 @@ public class navmov : MonoBehaviour
         }
 
         // Actualiza la posición de la nave
-        posnav = new Vector3(nuevaPosX, -7f, 0f);
+        posnav = new Vector3(nuevaPosX, -6f, -2f);
         nave.transform.position = posnav;
     }
 }
